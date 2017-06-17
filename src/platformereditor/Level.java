@@ -21,8 +21,6 @@ public class Level {
 
     private Player player = new Player(0, 0, 0, 0, null);
 
-    public Blocks bloecke;
-
     public void setObjekte(ArrayList<Objekt> objekte) {
         this.objekte = objekte;
     }
@@ -47,22 +45,7 @@ public class Level {
         return player;
     }
 
-    public class Blocks {
-
-        private ArrayList<Objekt> bloecke;
-
-        public Blocks() {
-            bloecke = new ArrayList<>();
-        }
-
-        public void addBlock(Objekt obj) {
-            bloecke.add(obj);
-        }
-
-        public ArrayList<Objekt> getBloecke() {
-            return bloecke;
-        }
-    }
+    
 
     /**
      * @return the size

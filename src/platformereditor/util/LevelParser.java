@@ -52,14 +52,6 @@ public class LevelParser {
         ReadPlayer((Map) map.get("player"));
         ReadBlocks((Map) map.get("blocks"));
 
-        ArrayList<Objekt> objekte = new ArrayList<>();
-        ArrayList<Objekt> blockliste = lvlobject.bloecke.getBloecke();
-
-        for (Objekt block : blockliste) {
-            objekte.add(block);
-        }
-
-        lvlobject.setObjekte(objekte);
         return lvlobject;
     }
 
@@ -111,7 +103,7 @@ public class LevelParser {
     }
 
     private void ReadBlocks(Map blocks) {
-        lvlobject.bloecke = lvlobject.new Blocks();
+        ArrayList<Objekt> blockliste = new ArrayList();
         for (Object blockname : blocks.keySet()) {
             Map blockdata = (Map) blocks.get(blockname);
             BufferedImage Sprite = null;
@@ -134,14 +126,15 @@ public class LevelParser {
                 int W = (int) pos.get(2);
                 int H = (int) pos.get(3);
                 if (Sprite == null) {
-                    lvlobject.bloecke.addBlock(new Bloecke(X, Y, W, H, color));
+                    blockliste.add(new Bloecke(X, Y, W, H, color));
                 } else {
-                    lvlobject.bloecke.addBlock(new Bloecke(X, Y, W, H, Sprite));
+                    blockliste.add(new Bloecke(X, Y, W, H, Sprite));
                 }
 
             }
 
         }
+        lvlobject.setObjekte(blockliste);
     }
 
     private void ReadMeta(Map meta) {
@@ -173,7 +166,7 @@ public class LevelParser {
 
     private Map WriteBlocks() {
         Map map = new HashMap();
-        ArrayList<Objekt> blockliste = lvlobject.bloecke.getBloecke();
+        ArrayList<Objekt> blockliste = lvlobject.getObjekte();
         for (Objekt block : blockliste) {
             Map blockmap = new HashMap();
             if (block.getCOLOR() != null) {
