@@ -49,6 +49,7 @@ public class EditorGUI extends javax.swing.JFrame {
         miDatei = new javax.swing.JMenu();
         mitNeu = new javax.swing.JMenuItem();
         mitOeffne = new javax.swing.JMenuItem();
+        mitSave = new javax.swing.JMenuItem();
         sep1 = new javax.swing.JPopupMenu.Separator();
         reRender = new javax.swing.JMenuItem();
         miWindows = new javax.swing.JMenu();
@@ -66,7 +67,7 @@ public class EditorGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         pnEditor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -103,6 +104,15 @@ public class EditorGUI extends javax.swing.JFrame {
             }
         });
         miDatei.add(mitOeffne);
+
+        mitSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        mitSave.setText("Speichern");
+        mitSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitSaveActionPerformed(evt);
+            }
+        });
+        miDatei.add(mitSave);
         miDatei.add(sep1);
 
         reRender.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
@@ -165,6 +175,10 @@ public class EditorGUI extends javax.swing.JFrame {
         editorobj.openProps();
     }//GEN-LAST:event_mitOpenPropsActionPerformed
 
+    private void mitSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitSaveActionPerformed
+        editorobj.saveClicked();
+    }//GEN-LAST:event_mitSaveActionPerformed
+
     public void showRightClickMenu(MouseEvent evt) {
         rcklMenu.show(this, evt.getX(), evt.getY());
     }
@@ -189,6 +203,7 @@ public class EditorGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem mitNeu;
     private javax.swing.JMenuItem mitOeffne;
     private javax.swing.JMenuItem mitOpenProps;
+    private javax.swing.JMenuItem mitSave;
     private javax.swing.JPanel pnEditor;
     private javax.swing.JRadioButtonMenuItem rbmitAdd;
     private javax.swing.JRadioButtonMenuItem rbmitDel;

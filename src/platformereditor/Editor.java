@@ -15,7 +15,7 @@ import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import platformereditor.util.ReadLevel;
+import platformereditor.util.LevelParser;
 
 /**
  *
@@ -67,12 +67,15 @@ public class Editor {
     }
 
     private Level readLevel(File leveldatei) {
-        Level level = ReadLevel.readLevel(leveldatei);
+        LevelParser parser = new LevelParser(leveldatei);
+        Level level = parser.readLevel();
         return level;
     }
 
     public Editor() {
         init();
+        Properties = new PropsGUI();
+        Properties.setVisible(true);
     }
 
     private static void setLaF() {
@@ -143,4 +146,26 @@ public class Editor {
         Bloecke block = new Bloecke(x, y, width, height, color);
         return block;
     }
-}
+
+    void test() {
+        LevelParser parser = new LevelParser(null);
+        parser.writeLevel(currentLevel);
+    }
+
+    void saveClicked() {
+        JFileChooser chooser = new javax.swing.JFileChooser();
+        FileFilter filter = new FileNameExtensionFilter("Level Dateien (*.yml)", "yml");
+        chooser.setFileFilter(filter);
+        int option = chooser.showSaveDialog(null);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            File leveldatei = chooser.getSelectedFile();
+            String fname = leveldatei.getAbsolutePath();
+
+            if (!fname.endsWith(".xml")) {
+                leveldatei = new File(fname + ".yml");
+            }
+                LevelParser parser = new LevelParser(leveldatei);
+                parser.writeLevel(currentLevel);
+            }
+        }
+    }
